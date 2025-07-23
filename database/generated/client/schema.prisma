@@ -1,0 +1,245 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+  output          = "../generated/client"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String                @id @default(uuid()) @map("_id")
+  name                String
+  email               String
+  emailVerified       Boolean
+  image               String?
+  createdAt           DateTime
+  updatedAt           DateTime
+  sessions            Session[]
+  accounts            Account[]
+  detectionHistory    DetectionHistory[]
+  userPointHistory    UserPointHistory[]
+  userMissionProgress UserMissionProgress[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(uuid()) @map("_id")
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(uuid()) @map("_id")
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id @default(uuid()) @map("_id")
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+/**
+ * Fish Family
+ * For categorize fish by family
+ */
+model FishFamily {
+  id          String   @id @default(uuid()) @map("_id")
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  fishes      Fish[]
+
+  @@map("fish_family")
+}
+
+/**
+ * Fish Rarity
+ * For categorize fish by rarity
+ * 1. พบบ่อย
+ * 2. หายาก
+ * 3. ใกล้สูญพันธุ์
+ */
+model FishRarity {
+  id        String   @id @default(uuid()) @map("_id")
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  fishes    Fish[]
+
+  @@map("fish_rarity")
+}
+
+model Fish {
+  id                   String                @id @default(uuid()) @map("_id")
+  name                 String
+  scientificName       String?
+  description          String?
+  imageUrl             String?
+  habitat              String?
+  length               String?
+  age                  String?
+  depthLevel           String?
+  weight               String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  familyId             String?
+  family               FishFamily?           @relation(fields: [familyId], references: [id])
+  rarityId             String?
+  rarity               FishRarity?           @relation(fields: [rarityId], references: [id])
+  detectionResults     DetectionResult[]
+  userMissionProgress  UserMissionProgress[]
+  userPointHistories   UserPointHistory[]
+  missionDetailTargets MissionDetailTarget[]
+
+  @@index([familyId])
+  @@index([rarityId])
+  @@map("fish")
+}
+
+/**
+ * Detection History
+ * For record detection history
+ */
+model DetectionHistory {
+  id               String            @id @default(uuid()) @map("_id")
+  imageUrl         String
+  claimToken       String?           @unique
+  isClaimed        Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  userId           String
+  user             User              @relation(fields: [userId], references: [id])
+  userPointHistory UserPointHistory? @relation("DetectionPoint")
+  detectionResults DetectionResult[]
+
+  @@index([userId, createdAt])
+  @@index([isClaimed])
+  @@map("detection_history")
+}
+
+model DetectionResult {
+  id                 String           @id @default(uuid()) @map("_id")
+  confidence         Float
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  detectionHistoryId String
+  detectionHistory   DetectionHistory @relation(fields: [detectionHistoryId], references: [id], onDelete: Cascade)
+  fishId             String?
+  fish               Fish?            @relation(fields: [fishId], references: [id])
+
+  @@map("detection_result")
+}
+
+/**
+ * User Point History
+ * For record user point history
+ */
+model UserPointHistory {
+  id                 String            @id @default(uuid()) @map("_id")
+  point              Int
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  userId             String
+  user               User              @relation(fields: [userId], references: [id])
+  detectionHistoryId String?           @unique
+  detectionHistory   DetectionHistory? @relation("DetectionPoint", fields: [detectionHistoryId], references: [id])
+  missionId          String?
+  mission            Mission?          @relation(fields: [missionId], references: [id])
+  fishId             String?
+  fish               Fish?             @relation(fields: [fishId], references: [id])
+
+  @@unique([missionId, userId, fishId])
+  @@index([userId, createdAt])
+  @@map("user_point_history")
+}
+
+/**
+ * Mission
+ * For record mission
+ */
+model Mission {
+  id             String                @id @default(uuid()) @map("_id")
+  title          String
+  point          Int                   @default(1)
+  description    String?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+  detailTargets  MissionDetailTarget[]
+  userProgresses UserMissionProgress[]
+  pointHistories UserPointHistory[]
+
+  @@map("mission")
+}
+
+/**
+ * Mission Detail Target
+ * For record mission detail target
+ */
+model MissionDetailTarget {
+  id        String   @id @default(uuid()) @map("_id")
+  amount    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  missionId String
+  mission   Mission  @relation(fields: [missionId], references: [id])
+  fishId    String
+  fish      Fish     @relation(fields: [fishId], references: [id])
+
+  @@index([fishId])
+  @@map("mission_detail_target")
+}
+
+/**
+ * User Mission Progress
+ * For record user mission progress
+ */
+model UserMissionProgress {
+  id        String   @id @default(uuid()) @map("_id")
+  isSuccess Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  missionId String
+  mission   Mission  @relation(fields: [missionId], references: [id])
+  fish      Fish     @relation(fields: [fishId], references: [id])
+  fishId    String
+
+  @@unique([userId, missionId, fishId])
+  @@map("user_mission_progress")
+}
