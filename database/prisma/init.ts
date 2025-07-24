@@ -75,7 +75,7 @@ async function main() {
       age: fish.age,
       weight: fish.weight,
       depthLevel: fish.depthLevel,
-      imageUrl: `https://picsum.photos/seed/fish${i}/800`,
+      imageUrl: fish.imageUrl,
       familyId: fish.family ? familyByName[fish.family] ?? null : null,  // ตรวจให้มี field นี้ใน fishData
       rarityId: rarityByName[rarity],
     }
@@ -248,7 +248,7 @@ async function main() {
       /* point จากปลา */
       pointRows.push({
         userId: h.userId,
-        point: 5,
+        point: Math.floor(Math.random() * 100),
         detectionHistoryId: h.id,
         fishId: topFish,
         missionId: null,

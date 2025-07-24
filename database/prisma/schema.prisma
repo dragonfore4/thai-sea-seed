@@ -2,6 +2,7 @@ generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
   output          = "../generated/client"
+  binaryTargets   = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -105,25 +106,25 @@ model FishRarity {
 }
 
 model Fish {
-  id                  String                @id @default(uuid()) @map("_id")
-  name                String
-  scientificName      String?
-  description         String?
-  imageUrl            String?
-  habitat             String?
-  length              String?
-  age                 String?
-  depthLevel          String?
-  weight              String?
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime              @updatedAt
-  familyId            String?
-  family              FishFamily?           @relation(fields: [familyId], references: [id])
-  rarityId            String?
-  rarity              FishRarity?           @relation(fields: [rarityId], references: [id])
-  detectionResults    DetectionResult[]
-  userMissionProgress UserMissionProgress[]
-  userPointHistories  UserPointHistory[]
+  id                   String                @id @default(uuid()) @map("_id")
+  name                 String
+  scientificName       String?
+  description          String?
+  imageUrl             String?
+  habitat              String?
+  length               String?
+  age                  String?
+  depthLevel           String?
+  weight               String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  familyId             String?
+  family               FishFamily?           @relation(fields: [familyId], references: [id])
+  rarityId             String?
+  rarity               FishRarity?           @relation(fields: [rarityId], references: [id])
+  detectionResults     DetectionResult[]
+  userMissionProgress  UserMissionProgress[]
+  userPointHistories   UserPointHistory[]
   missionDetailTargets MissionDetailTarget[]
 
   @@index([familyId])
@@ -195,7 +196,7 @@ model UserPointHistory {
 model Mission {
   id             String                @id @default(uuid()) @map("_id")
   title          String
-  point          Int                 @default(1)
+  point          Int                   @default(1)
   description    String?
   createdAt      DateTime              @default(now())
   updatedAt      DateTime              @updatedAt
@@ -211,14 +212,14 @@ model Mission {
  * For record mission detail target
  */
 model MissionDetailTarget {
-  id                String              @id @default(uuid()) @map("_id")
-  amount            Int
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  missionId         String
-  mission           Mission             @relation(fields: [missionId], references: [id])
-  fishId           String
-  fish              Fish                @relation(fields: [fishId], references: [id])
+  id        String   @id @default(uuid()) @map("_id")
+  amount    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  missionId String
+  mission   Mission  @relation(fields: [missionId], references: [id])
+  fishId    String
+  fish      Fish     @relation(fields: [fishId], references: [id])
 
   @@index([fishId])
   @@map("mission_detail_target")
