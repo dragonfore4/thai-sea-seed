@@ -10,11 +10,13 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.9.0",
     "@prisma/client": "^6.12.0",
     "ibm-cos-sdk": "^1.14.1"
   },
   "scripts": {
     "generate": "cd database/prisma && bunx prisma generate",
-    "push": "cd database/prisma && bunx prisma db push"
+    "push": "cd database/prisma && bunx prisma db push",
+    "seed": "cd database/prisma && bun seed.ts"
   }
 }
