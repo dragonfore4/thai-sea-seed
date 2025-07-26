@@ -57,13 +57,13 @@ Mid-water in deep lagoons and near external reefs in tropical Indo-Pacific (Afri
 "Coral reefs from Persian Gulf and Maldives to Japan, Philippines, and Indonesia; prefers depths of 3–15 m, often near branching corals."
 "Coral reefs, rubble, and rocky areas from Maldives, India, Sri Lanka, Andaman Sea to western Indonesia; found at depths of 2–25 m."
 "Coral-rich seaward and lagoon reefs from East Africa to Line Islands, Ryukyu Islands, Great Barrier Reef, Micronesia, Galapagos; depths 2–25 m."
-Sheltered inshore and lagoon reefs among corals; depth range 3–20 m.
-"Lagoons, reef flats, and seaward reefs; depth range 1–20 m."
-"Coral reefs, channels, reef slopes; juveniles in dense coral/seagrass, adults 1–100 m depth."
-"Clear lagoons and seaward reefs, prefers dead or silty areas; depth range 2–40 m."
-"Tropical Indo-Pacific reefs and lagoons; prefers shallow coral areas, especially with Acropora; depth range 1–50 m."
-Reefs across Indo-Pacific from Red Sea to Australia; prefers unfished or protected reef areas; depth 5–150 m.
-Coral reefs in Indo-Pacific and eastern Pacific; commonly found at depths of 2–40 m.
+Sheltered inshore and lagoon reefs among corals in Indo-Pacific; depth range 3–20 m.
+"Lagoons, protected reef flats, and seaward reefs with rich coral growth in Indo-Pacific; depth range 1–20 m."
+"Steep coral reef slopes, channels, and lagoon reefs in Indo-Pacific; juveniles in dense coral/seagrass, adults in open reef edges; depth 1–100 m."
+Clear lagoons and seaward reefs in tropical Indo-West Pacific; prefers dead or silty areas; depth range 2–40 m.
+Seaward reefs and shallow lagoons in tropical Indo-Pacific; juveniles prefer staghorn coral reefs; depth range 1–50 m.
+Reefs across Indo-Pacific from Red Sea to Australia; prefers unfished or protected reef areas; depth 5–150 m.
+"Coral reefs in tropical Indo-Pacific and eastern Pacific (Africa to Hawaii, Red Sea, Baja California, Galapagos); found at depths of 2–40 m."
 "Tropical Indo-Pacific reefs; juveniles in shallow areas, adults near drop-offs and seamounts; depth varies widely."
 "Clear lagoons and seaward reefs, Indo-Pacific (Red Sea to French Polynesia); depth 1–30 m."
 Outer reef slopes and channels across the Indo‑Pacific; depth range 2–178 m.

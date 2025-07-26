@@ -1,6 +1,3 @@
-## Talk with phupha about fish name changed then what about picture ? cause we map anme with picture
-## try to select from csv file you will know what name chaged 
-## This is the default version
 Brownbanded bamboo shark
 Whale shark
 Zebra shark

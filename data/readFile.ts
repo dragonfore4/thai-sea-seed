@@ -22,6 +22,7 @@ const filename = list[selectNumber - 1]
 if (!filename) {
   throw new Error('Filename is not defined');
 }
+// console.log("now reading file:", filename);
 
 
 const filePath = path.join(__dirname, 'txt', filename);
@@ -33,5 +34,5 @@ const dataArray = data.split('\n').map(line => {
   return trimmed === '' ? 'Undetected' : trimmed;
 });
 
-console.log(dataArray);
-console.log(dataArray.length);
+// console.log(dataArray);
+// console.log(dataArray.length);

@@ -25,7 +25,7 @@ export const fishData: Fish[] = fishNames.map((name, i) => ({
   habitat: habitat[i] ?? "Unknown Habitat", // Placeholder, will be updated from habitat.txt
   length: avgLength[i] ?? "Undetected",
   age: avgAge[i] ?? "Undetected",
-  imageUrl:  fishImagesUrl.find(url => url.includes(name.replaceAll(" ","-").toLowerCase())) ?? "https://example.com/default-image.jpg",
+  imageUrl: fishImagesUrl.find(url => url.includes(name.replaceAll(" ", "-").toLowerCase())) ?? "https://example.com/default-image.jpg",
   weight: avgWeight[i] ?? "Undetected",
   depthLevel: avgDepthLevel[i] ?? "Undetected",
 }))
@@ -58,7 +58,7 @@ async function checkFishImageUrls() {
       }
     } catch (error) {
       console.error(`🚨 ${fish.name}: Fetch error`, error);
-        process.exit(1); // 💥 exit script immediately
+      process.exit(1); // 💥 exit script immediately
 
     } finally {
       count++;
