@@ -17,6 +17,7 @@
   "scripts": {
     "generate": "cd database/prisma && bunx prisma generate",
     "push": "cd database/prisma && bunx prisma db push",
-    "seed": "cd database/prisma && bun seed.ts"
+    "seed": "cd database/prisma && bun seed.ts",
+    "studio": "cd database/prisma && bunx prisma studio"
   }
 }
